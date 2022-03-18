@@ -23,7 +23,7 @@ export class LessonTypeValidator {
   private validate(lessonType: ILessonType): string[] {
     let errors: string[] = [];
 
-    this.getIdErrors(lessonType.id).forEach(error => errors.push(error));
+    this.getIdErrors(Number(lessonType.id)).forEach(error => errors.push(error));
     this.getDescriptionErrors(lessonType.description).forEach(error => errors.push(error));
 
     return errors;

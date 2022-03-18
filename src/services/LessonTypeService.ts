@@ -14,23 +14,25 @@ export class LessonTypeService {
   public async getAll(): Promise<ILessonType[]> {
     let lessonTypes = await this.repository.getAll();
 
-    return lessonTypes;
+    return lessonTypes as ILessonType[];
   }
 
-  public async getById(id: number): Promise<ILessonType | null> {
+  public async getById(id: number): Promise<ILessonType> {
     let lessonType = await this.repository.getById(id);
 
-    return lessonType;
+    return lessonType as ILessonType;
   }
 
-  public async create(lessonType: ILessonType): Promise<string[] | void> {
+  public async create(lessonType: ILessonType): Promise<number | string[]> {
     let errors = await this.validator.validateCreate(lessonType);
 
     if (errors.length > 0) {
       return errors;
     }
 
-    await this.repository.create(lessonType);
+    let insertedId = await this.repository.create(lessonType);
+
+    return insertedId as number;
   }
 
   public async update(lessonType: ILessonType): Promise<string[] | void> {
