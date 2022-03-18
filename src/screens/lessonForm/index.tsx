@@ -1,5 +1,5 @@
-import { Text } from "react-native";
-import { SafeZoneScreen } from "../../components/safeZoneScreen";
+import { Text } from 'react-native';
+import { SafeZoneScreen } from '../../components/safeZoneScreen';
 import styles from './styles';
 
 export function LessonForm() {
