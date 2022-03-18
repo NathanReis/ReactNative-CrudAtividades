@@ -3,7 +3,7 @@ import { StatusEnum } from '../enums/StatusEnum';
 import { ILessonType } from './ILessonType';
 
 export interface ILesson {
-  id: number;
+  id?: number;
   lessonType: ILessonType;
   description: string;
   local: LocalEnum;

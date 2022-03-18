@@ -1,4 +1,4 @@
 export interface ILessonType {
-  id: number;
+  id?: number;
   description: string;
 }
