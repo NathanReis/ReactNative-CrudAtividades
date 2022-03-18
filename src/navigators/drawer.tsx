@@ -5,7 +5,7 @@ let drawer = createDrawerNavigator();
 
 export function DrawerNavigator() {
   return (
-    <drawer.Navigator defaultScreenOptions={{ headerShown: false }}>
+    <drawer.Navigator screenOptions={{ headerShown: false }}>
       <drawer.Screen name='Home' component={Home} />
       <drawer.Screen name='Atividades' component={Home} />
       <drawer.Screen name='Tipos de atividades' component={Home} />
