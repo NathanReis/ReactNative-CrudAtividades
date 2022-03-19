@@ -1,5 +1,5 @@
 export enum LocalEnum {
-  CLASS = 'sala',
-  LABORATORY = 'laboratório',
-  AUDITORIUM = 'auditório'
+  CLASS = 'Sala',
+  LABORATORY = 'Laboratório',
+  AUDITORIUM = 'Auditório'
 }
