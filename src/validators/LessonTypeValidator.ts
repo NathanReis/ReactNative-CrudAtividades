@@ -9,18 +9,14 @@ export class LessonTypeValidator {
   }
 
   public async validateCreate(lessonType: ILessonType): Promise<string[]> {
-    let errors = this.validate(lessonType);
+    let errors: string[] = [];
+
+    this.getDescriptionErrors(lessonType.description).forEach(error => errors.push(error));
 
     return errors;
   }
 
   public async validateUpdate(lessonType: ILessonType): Promise<string[]> {
-    let errors = this.validate(lessonType);
-
-    return errors;
-  }
-
-  private validate(lessonType: ILessonType): string[] {
     let errors: string[] = [];
 
     this.getIdErrors(Number(lessonType.id)).forEach(error => errors.push(error));
