@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { Alert, Text, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
@@ -43,11 +43,14 @@ export function LessonList() {
 
   let [lessons, setLessons] = useState<ILesson[]>([]);
   let [isLoading, setIsLoading] = useState<boolean>(true);
+  let isFocused = useIsFocused();
   let navigation = useNavigation();
 
   useEffect(() => {
-    loadData();
-  }, []);
+    if (isFocused) {
+      loadData();
+    }
+  }, [isFocused]);
 
   if (isLoading) {
     return <Loading />;

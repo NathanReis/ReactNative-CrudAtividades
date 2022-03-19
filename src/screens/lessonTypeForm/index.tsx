@@ -1,4 +1,4 @@
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { Alert, View } from 'react-native';
 import { Button } from '../../components/button';
@@ -63,6 +63,7 @@ export function LessonTypeForm() {
   let [id, setId] = useState<number>(0);
   let [description, setDescription] = useState<string>('');
   let [isLoading, setIsLoading] = useState<boolean>(true);
+  let isFocused = useIsFocused();
   let navigation = useNavigation();
   let route = useRoute();
 
@@ -71,11 +72,11 @@ export function LessonTypeForm() {
       try {
         let params = route.params as IParams;
 
-        if (params.id) {
+        if (params && params.id) {
           let service = new LessonTypeService();
           let lessonType = await service.getById(params.id)
 
-          setId(Number(lessonType.id));
+          setId(lessonType.id!);
           setDescription(lessonType.description);
         } else {
           clearFields();
@@ -87,10 +88,12 @@ export function LessonTypeForm() {
       setIsLoading(false);
     }
 
-    setIsLoading(true);
-
-    loadData();
-  }, [route.params]);
+    if (isFocused) {
+      setIsLoading(true);
+      loadData();
+      navigation.setParams({ id: 0 } as never);
+    }
+  }, [isFocused]);
 
   if (isLoading) {
     return <Loading />;

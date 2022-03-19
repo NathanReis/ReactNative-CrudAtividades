@@ -1,5 +1,5 @@
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { Alert, View } from 'react-native';
 import { Button } from '../../components/button';
@@ -127,12 +127,11 @@ export function LessonForm() {
   let [isLoading, setIsLoading] = useState<boolean>(true);
   let [isToShowDatePicker, setIsToShowDatePicker] = useState<boolean>(false);
   let [isToShowTimePicker, setIsToShowTimePicker] = useState<boolean>(false);
+  let isFocused = useIsFocused();
   let navigation = useNavigation();
   let route = useRoute();
 
   useEffect(() => {
-    setIsLoading(true);
-
     async function loadLessonTypes() {
       try {
         let service = new LessonTypeService();
@@ -147,7 +146,7 @@ export function LessonForm() {
       try {
         let params = route.params as IParams;
 
-        if (params.id) {
+        if (params && params.id) {
           let service = new LessonService();
           let lesson = await service.getById(params.id)
 
@@ -181,8 +180,12 @@ export function LessonForm() {
       setIsLoading(false);
     }
 
-    loadData();
-  }, [route.params]);
+    if (isFocused) {
+      setIsLoading(true);
+      loadData();
+      navigation.setParams({ id: 0 } as never);
+    }
+  }, [isFocused]);
 
   if (isLoading) {
     return <Loading />
