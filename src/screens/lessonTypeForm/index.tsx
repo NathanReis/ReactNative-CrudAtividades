@@ -1,6 +1,6 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
-import { Alert, Text, View } from 'react-native';
+import { Alert, View } from 'react-native';
 import { Button } from '../../components/button';
 import { Input } from '../../components/input';
 import { Loading } from '../../components/loading';
