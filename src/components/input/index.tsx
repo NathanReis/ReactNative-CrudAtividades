@@ -2,6 +2,7 @@ import { KeyboardTypeOptions, Text, TextInput, View } from 'react-native';
 import styles from './styles';
 
 interface IInputProps {
+  editable?: boolean;
   keyboardType?: KeyboardTypeOptions;
   label: string;
   value: number | string;
@@ -9,12 +10,13 @@ interface IInputProps {
 }
 
 export function Input(props: IInputProps) {
-  let { keyboardType, label, value, onChangeText } = props;
+  let { editable, keyboardType, label, value, onChangeText } = props;
 
   return (
     <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
       <TextInput
+        editable={editable}
         keyboardType={keyboardType || 'default'}
         style={styles.input}
         value={value ? String(value) : ''}
