@@ -9,7 +9,7 @@ interface ISelectProps {
 
 export function Select(props: ISelectProps) {
   let { data, selectedValue, onValueChange } = props;
-  let emptyValue = typeof data[0].key === 'number' ? 0 : '';
+  let emptyValue = typeof data[0]?.key === 'number' ? 0 : '';
 
   return (
     <Picker
