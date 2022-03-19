@@ -4,13 +4,15 @@ let statusBarHeight = Platform.OS === 'android' ? Number(StatusBar.currentHeight
 
 export default StyleSheet.create({
   container: {
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
 
-    paddingTop: statusBarHeight,
+    minHeight: Dimensions.get('window').height,
+    width: Dimensions.get('window').width,
 
-    height: Dimensions.get('window').height,
-    width: Dimensions.get('window').width
+    marginTop: statusBarHeight
+  },
+  containerWithoutScroll: {
+    height: Dimensions.get('window').height
   }
 });

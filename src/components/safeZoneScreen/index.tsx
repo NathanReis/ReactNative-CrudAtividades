@@ -5,10 +5,11 @@ import styles from './styles';
 
 interface ISafeZoneScreenProps {
   children: ReactNode;
+  isWithoutScroll?: boolean;
 }
 
 export function SafeZoneScreen(props: ISafeZoneScreenProps) {
-  let { children } = props;
+  let { children, isWithoutScroll } = props;
 
   return (
     <SafeAreaView>
@@ -16,11 +17,19 @@ export function SafeZoneScreen(props: ISafeZoneScreenProps) {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <ScrollView>
-            <View style={styles.container}>
-              {children}
-            </View>
-          </ScrollView>
+          {
+            isWithoutScroll
+              ? (
+                <View style={[styles.container, styles.containerWithoutScroll]}>
+                  {children}
+                </View>
+              )
+              : (
+                <ScrollView contentContainerStyle={styles.container}>
+                  {children}
+                </ScrollView>
+              )
+          }
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
     </SafeAreaView >
