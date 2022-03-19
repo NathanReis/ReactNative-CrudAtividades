@@ -100,12 +100,12 @@ export function LessonTypeForm() {
     <SafeZoneScreen>
       <Title content={'Tipo de\natividade'} />
 
-      <Input editable={false} label='ID' value={id} />
+      {id ? <Input editable={false} label='ID' value={id} /> : null}
       <Input label='Descrição' value={description} onChangeText={handleDescriptionChange} />
 
       <View style={styles.buttonsContainer}>
         <Button title='Salvar' onPress={handleSave} />
-        <Button title='Apagar' onPress={handleDelete} />
+        {id ? <Button title='Apagar' onPress={handleDelete} /> : null}
       </View>
 
       <Button title='Ver todos' onPress={handleSeeAll} />
