@@ -3,7 +3,9 @@ import { useEffect, useState } from 'react';
 import { Alert, Text, View } from 'react-native';
 import { Button } from '../../components/button';
 import { Input } from '../../components/input';
+import { Loading } from '../../components/loading';
 import { SafeZoneScreen } from '../../components/safeZoneScreen';
+import { Title } from '../../components/title';
 import { ILessonType } from '../../models/ILessonType';
 import { LessonTypeService } from '../../services/LessonTypeService';
 import styles from './styles';
@@ -91,12 +93,12 @@ export function LessonTypeForm() {
   }, [route.params]);
 
   if (isLoading) {
-    return <Text>Carregando...</Text>;
+    return <Loading />;
   }
 
   return (
     <SafeZoneScreen>
-      <Text style={styles.title}>Tipo de{'\n'}atividade</Text>
+      <Title content={'Tipo de\natividade'} />
 
       <Input editable={false} label='ID' value={id} />
       <Input label='Descrição' value={description} onChangeText={handleDescriptionChange} />
