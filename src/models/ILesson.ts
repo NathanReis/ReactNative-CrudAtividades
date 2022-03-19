@@ -4,9 +4,10 @@ import { ILessonType } from './ILessonType';
 
 export interface ILesson {
   id?: number;
-  lessonType: ILessonType;
+  lessonTypeId: number;
+  lessonType?: ILessonType;
   description: string;
-  local: LocalEnum;
+  local: LocalEnum | string;
   sendDateTime: Date;
-  status: StatusEnum;
+  status: StatusEnum | string;
 }
