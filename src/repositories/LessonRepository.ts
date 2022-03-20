@@ -1,12 +1,10 @@
-import * as SQLite from 'expo-sqlite';
 import { ILesson } from '../models/ILesson';
+import DB_CONNECTION from './DbConnection';
 
 export class LessonRepository {
-  private readonly connection;
   private readonly tableName;
 
   public constructor() {
-    this.connection = SQLite.openDatabase('db.db');
     this.tableName = 'tbLessons';
     this.createTable();
   }
@@ -18,7 +16,7 @@ export class LessonRepository {
       FROM ${this.tableName};`;
 
     return new Promise((resolve, reject) => {
-      this.connection.transaction(
+      DB_CONNECTION.transaction(
         transaction => transaction.executeSql(
           query,
           [],
@@ -47,7 +45,7 @@ export class LessonRepository {
       WHERE id = ?;`;
 
     return new Promise((resolve, reject) => {
-      this.connection.transaction(
+      DB_CONNECTION.transaction(
         transaction => transaction.executeSql(
           query,
           [id],
@@ -73,7 +71,7 @@ export class LessonRepository {
       VALUES (?, ?, ?, ?, ?);`;
 
     return new Promise((resolve, reject) => {
-      this.connection.transaction(
+      DB_CONNECTION.transaction(
         transaction => transaction.executeSql(
           query,
           [lesson.lessonTypeId, lesson.description, lesson.local, lesson.sendDateTime.toISOString(), lesson.status],
@@ -102,7 +100,7 @@ export class LessonRepository {
       WHERE id = ?;`;
 
     return new Promise((resolve, reject) => {
-      this.connection.transaction(
+      DB_CONNECTION.transaction(
         transaction => transaction.executeSql(
           query,
           [lesson.lessonTypeId, lesson.description, lesson.local, lesson.sendDateTime.toISOString(), lesson.status, lesson.id!],
@@ -125,7 +123,7 @@ export class LessonRepository {
       WHERE id = ?;`;
 
     return new Promise((resolve, reject) => {
-      this.connection.transaction(
+      DB_CONNECTION.transaction(
         transaction => transaction.executeSql(
           query,
           [id],
@@ -146,11 +144,14 @@ export class LessonRepository {
         local TEXT NOT NULL,
         sendDateTime TIMESTAMP NOT NULL,
         status TEXT NOT NULL,
-        FOREIGN KEY (lessonTypeId) REFERENCES tbLessonTypes (id)
+        CONSTRAINT fkLessonXLessonTypeId
+          FOREIGN KEY (lessonTypeId)
+          REFERENCES tbLessonTypes (id)
+          ON DELETE CASCADE
       );`;
 
     return new Promise((resolve, reject) => {
-      this.connection.transaction(
+      DB_CONNECTION.transaction(
         transaction => transaction.executeSql(
           query,
           [],

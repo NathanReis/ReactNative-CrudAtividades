@@ -1,12 +1,10 @@
-import * as SQLite from 'expo-sqlite';
 import { ILessonType } from '../models/ILessonType';
+import DB_CONNECTION from './DbConnection';
 
 export class LessonTypeRepository {
-  private readonly connection;
   private readonly tableName;
 
   public constructor() {
-    this.connection = SQLite.openDatabase('db.db');
     this.tableName = 'tbLessonTypes';
     this.createTable();
   }
@@ -18,7 +16,7 @@ export class LessonTypeRepository {
       FROM ${this.tableName};`;
 
     return new Promise((resolve, reject) => {
-      this.connection.transaction(
+      DB_CONNECTION.transaction(
         transaction => transaction.executeSql(
           query,
           [],
@@ -44,7 +42,7 @@ export class LessonTypeRepository {
       WHERE id = ?;`;
 
     return new Promise((resolve, reject) => {
-      this.connection.transaction(
+      DB_CONNECTION.transaction(
         transaction => transaction.executeSql(
           query,
           [id],
@@ -67,7 +65,7 @@ export class LessonTypeRepository {
       VALUES (?);`;
 
     return new Promise((resolve, reject) => {
-      this.connection.transaction(
+      DB_CONNECTION.transaction(
         transaction => transaction.executeSql(
           query,
           [lessonType.description],
@@ -91,7 +89,7 @@ export class LessonTypeRepository {
       WHERE id = ?;`;
 
     return new Promise((resolve, reject) => {
-      this.connection.transaction(
+      DB_CONNECTION.transaction(
         transaction => transaction.executeSql(
           query,
           [lessonType.description, Number(lessonType.id)],
@@ -114,7 +112,7 @@ export class LessonTypeRepository {
       WHERE id = ?;`;
 
     return new Promise((resolve, reject) => {
-      this.connection.transaction(
+      DB_CONNECTION.transaction(
         transaction => transaction.executeSql(
           query,
           [id],
@@ -134,7 +132,7 @@ export class LessonTypeRepository {
       );`;
 
     return new Promise((resolve, reject) => {
-      this.connection.transaction(
+      DB_CONNECTION.transaction(
         transaction => transaction.executeSql(
           query,
           [],
