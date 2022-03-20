@@ -1,3 +1,4 @@
+import { StatusEnum } from '../enums/StatusEnum';
 import { ILesson } from '../models/ILesson';
 import { LessonRepository } from '../repositories/LessonRepository';
 import { LessonValidator } from '../validators/LessonValidator';
@@ -23,6 +24,12 @@ export class LessonService {
     return lesson as ILesson;
   }
 
+  public async getByStatus(status: StatusEnum | string): Promise<ILesson[]> {
+    let lesson = await this.repository.getByStatus(status);
+
+    return lesson as ILesson[];
+  }
+
   public async create(lesson: ILesson): Promise<number | string[]> {
     let errors = await this.validator.validateCreate(lesson);
 
@@ -43,6 +50,16 @@ export class LessonService {
     }
 
     await this.repository.update(lesson);
+  }
+
+  public async updateStatus(id: number, newStatus: StatusEnum): Promise<string[] | void> {
+    let errors = await this.validator.validateUpdateStatus(id, newStatus);
+
+    if (errors.length > 0) {
+      return errors;
+    }
+
+    await this.repository.updateStatus(id, newStatus);
   }
 
   public async delete(code: number): Promise<void> {

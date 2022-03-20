@@ -1,3 +1,4 @@
+import { StatusEnum } from '../enums/StatusEnum';
 import { ILesson } from '../models/ILesson';
 import DB_CONNECTION from './DbConnection';
 
@@ -65,6 +66,42 @@ export class LessonRepository {
     });
   }
 
+  public async getByStatus(status: StatusEnum | string) {
+    let lessons = [] as ILesson[];
+    let possibleStatuses = status === 'all'
+      ? Object.keys(StatusEnum).map(_status => `${_status}`).join('\', \'')
+      : Object.entries(StatusEnum).find(_status => _status[0] === status)![0];
+    let query = `
+      SELECT *
+      FROM ${this.tableName}
+      WHERE status IN ('${possibleStatuses}')
+      ORDER BY sendDateTime;`;
+
+    return new Promise((resolve, reject) => {
+      DB_CONNECTION.transaction(
+        transaction => transaction.executeSql(
+          query,
+          [],
+          (_, result) => {
+            console.log(result.rows);
+
+            let amountRows = result.rows.length;
+
+            for (let i = 0; i < amountRows; i++) {
+              let lesson = result.rows.item(i) as ILesson;
+              lesson.sendDateTime = new Date(lesson.sendDateTime);
+
+              lessons.push(lesson);
+            }
+
+            resolve(lessons);
+          }
+        ),
+        error => reject(error)
+      );
+    });
+  }
+
   public async create(lesson: ILesson) {
     let query = `
       INSERT INTO ${this.tableName} (lessonTypeId, description, local, sendDateTime, status)
@@ -104,6 +141,31 @@ export class LessonRepository {
         transaction => transaction.executeSql(
           query,
           [lesson.lessonTypeId, lesson.description, lesson.local, lesson.sendDateTime.toISOString(), lesson.status, lesson.id!],
+          (_, result) => {
+            if (result.rowsAffected > 0) {
+              resolve(true);
+            } else {
+              reject(false);
+            }
+          }
+        ),
+        error => reject(error)
+      );
+    });
+  }
+
+  public async updateStatus(id: number, newStatus: StatusEnum) {
+    let query = `
+      UPDATE ${this.tableName}
+      SET status = ?
+      WHERE id = ?;`;
+    let newStatusKey = Object.entries(StatusEnum).find(status => status[1] === newStatus)![0]
+
+    return new Promise((resolve, reject) => {
+      DB_CONNECTION.transaction(
+        transaction => transaction.executeSql(
+          query,
+          [newStatusKey, id],
           (_, result) => {
             if (result.rowsAffected > 0) {
               resolve(true);

@@ -1,3 +1,4 @@
+import { StatusEnum } from '../enums/StatusEnum';
 import { ILesson } from '../models/ILesson';
 import { LessonService } from '../services/LessonService';
 
@@ -21,6 +22,14 @@ export class LessonValidator {
 
     this.getIdErrors(Number(lesson.id)).forEach(error => errors.push(error));
     this.getDescriptionErrors(lesson.description).forEach(error => errors.push(error));
+
+    return errors;
+  }
+
+  public async validateUpdateStatus(id: number, status: StatusEnum): Promise<string[]> {
+    let errors: string[] = [];
+
+    this.getIdErrors(id).forEach(error => errors.push(error));
 
     return errors;
   }

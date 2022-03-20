@@ -1,3 +1,10 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 
-export default StyleSheet.create({});
+export default StyleSheet.create({
+  listContainer: {
+    height: Dimensions.get('window').height / 2
+  },
+  buttonsContainer: {
+    flexDirection: 'row'
+  }
+});
