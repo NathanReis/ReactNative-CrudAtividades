@@ -83,8 +83,6 @@ export class LessonRepository {
           query,
           [],
           (_, result) => {
-            console.log(result.rows);
-
             let amountRows = result.rows.length;
 
             for (let i = 0; i < amountRows; i++) {
