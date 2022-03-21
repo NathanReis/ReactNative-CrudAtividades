@@ -8,6 +8,7 @@ import { SafeZoneScreen } from '../../components/safeZoneScreen';
 import { Select } from '../../components/select';
 import { StatusEnum } from '../../enums/StatusEnum';
 import { ILesson } from '../../models/ILesson';
+import { Title } from '../../components/title';
 import { LessonService } from '../../services/LessonService';
 import styles from './styles';
 
@@ -79,6 +80,9 @@ export function Home() {
 
   return (
     <SafeZoneScreen isWithoutScroll={true}>
+      <View style={styles.buttonsContainer}>
+
+      <Title content={'Atividades'} />
       <Select
         data={
           Object
@@ -90,13 +94,14 @@ export function Home() {
         selectedValue={status}
         onValueChange={handleStatusChange}
       />
+      </View>
 
       <View style={styles.listContainer}>
         <FlatList
           data={lessons}
           keyExtractor={item => String(item.id)}
           renderItem={({ item }) => (
-            <View>
+            <View style={styles.item}>
               <Text>{item.description}</Text>
               {
                 item.status !== Object.entries(StatusEnum).find(status => status[1] == StatusEnum.CONCLUDED)![0] &&
@@ -108,13 +113,13 @@ export function Home() {
 
       <View style={styles.buttonsContainer}>
         <View>
-          <Text>Atividade</Text>
+          <Text style={styles.title}>Atividade</Text>
           <Button title='Nova' onPress={handleNewLesson} />
           <Button title='Todas' onPress={handleSeeAllLessons} />
         </View>
 
         <View>
-          <Text>Tipo de atividade</Text>
+          <Text style={styles.title}>Tipo de atividade</Text>
           <Button title='Nova' onPress={handleNewLessonType} />
           <Button title='Todas' onPress={handleSeeAllLessonTypes} />
         </View>

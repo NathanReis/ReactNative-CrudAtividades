@@ -58,18 +58,21 @@ export function LessonList() {
 
   return (
     <SafeZoneScreen isWithoutScroll={true}>
-      <Title content={'Lista de\natividades'} />
-
-      <FlatList
-        data={lessons}
-        keyExtractor={item => String(item.id)}
-        renderItem={({ item }) => (
-          <View>
-            <Text>{item.description}</Text>
-            <Button title='Editar' onPress={() => handleEdit(item.id!)} />
-            <Button title='Excluir' onPress={() => handleDelete(item.id!)} />
-          </View>
-        )} />
+      <Title content={'Lista de atividades'} />
+      <View style={styles.listContainer}>
+        <FlatList
+          data={lessons}
+          keyExtractor={item => String(item.id)}
+          renderItem={({ item }) => (
+            <View style={styles.item}>
+              <Text >{item.description}</Text>
+              <View style={styles.rowContainer}>
+                <Button title='Editar' onPress={() => handleEdit(item.id!)} />
+                <Button title='Excluir' onPress={() => handleDelete(item.id!)} />
+              </View>
+            </View>
+          )} />
+      </View>
     </SafeZoneScreen>
   );
 }

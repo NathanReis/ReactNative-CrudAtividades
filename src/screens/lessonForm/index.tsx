@@ -193,50 +193,62 @@ export function LessonForm() {
 
   return (
     <SafeZoneScreen>
-      <Title content={'Formulário de\natividade'} />
+      <View style={styles.containerForm} >
+        <Title content={'Formulário de atividade'} />
+        <View style={styles.rowContainer} >
+          {id ? <Input editable={false} label='ID' value={id} /> : null}
+          <Input label='Descrição: ' value={description} onChangeText={handleDescriptionChange} />
+        </View>
+        <View style={styles.rowContainer} >
+          <Select
+            data={lessonTypes.map(({ id, description }) => ({ key: id!, value: description }))}
+            selectedValue={lessonTypeId}
+            onValueChange={handleLessonTypeChange}
+          />
+          <Select
+            data={Object.entries(LocalEnum).map(local => ({ key: local[0], value: local[1] }))}
+            selectedValue={local}
+            onValueChange={handleLocalChange}
+          />
+        </View>
 
-      {id ? <Input editable={false} label='ID' value={id} /> : null}
-      <Input label='Descrição' value={description} onChangeText={handleDescriptionChange} />
-      <Select
-        data={lessonTypes.map(({ id, description }) => ({ key: id!, value: description }))}
-        selectedValue={lessonTypeId}
-        onValueChange={handleLessonTypeChange}
-      />
-      <Select
-        data={Object.entries(LocalEnum).map(local => ({ key: local[0], value: local[1] }))}
-        selectedValue={local}
-        onValueChange={handleLocalChange}
-      />
-      <Input editable={false} label='Data de entrega' value={sendDate.toISOString()} />
-      <Button title='Calendário' onPress={() => setIsToShowDatePicker(true)} />
-      {
-        isToShowDatePicker &&
-        <DateTimePicker
-          mode='date'
-          value={sendDate}
-          onChange={(_: any, date?: Date) => handleSenDateChange(date)}
-        />
-      }
-      <Input editable={false} label='Horário da entrega' value={sendTime.toISOString()} />
-      <Button title='Relógio' onPress={() => setIsToShowTimePicker(true)} />
-      {
-        isToShowTimePicker &&
-        <DateTimePicker
-          is24Hour={true}
-          mode='time'
-          value={sendTime}
-          onChange={(_: any, date?: Date) => handleSenTimeChange(date)}
-        />
-      }
-      <Select
-        data={Object.entries(StatusEnum).map(local => ({ key: local[0], value: local[1] }))}
-        selectedValue={status}
-        onValueChange={handleStatusChange}
-      />
+        <View style={styles.rowContainer} >
 
-      <View style={styles.buttonsContainer}>
-        <Button title='Salvar' onPress={handleSave} />
-        {id ? <Button title='Apagar' onPress={handleDelete} /> : null}
+          <Input editable={false} label='Data de entrega' value={sendDate.toISOString()} />
+          <Button title='Calendário' onPress={() => setIsToShowDatePicker(true)} />
+          {
+            isToShowDatePicker &&
+            <DateTimePicker
+              mode='date'
+              value={sendDate}
+              onChange={(_: any, date?: Date) => handleSenDateChange(date)}
+            />
+          }
+        </View>
+        <View style={styles.rowContainer} >
+          <Input editable={false} label='Horário da entrega' value={sendTime.toISOString()} />
+          <Button title='Relógio' onPress={() => setIsToShowTimePicker(true)} />
+          {
+            isToShowTimePicker &&
+            <DateTimePicker
+              is24Hour={true}
+              mode='time'
+              value={sendTime}
+              onChange={(_: any, date?: Date) => handleSenTimeChange(date)}
+            />
+          }
+        </View>
+        <View style={styles.rowContainer} >
+        <Select
+          data={Object.entries(StatusEnum).map(local => ({ key: local[0], value: local[1] }))}
+          selectedValue={status}
+          onValueChange={handleStatusChange}
+        />
+</View>
+        <View style={styles.rowContainer}>
+          <Button title='Salvar' onPress={handleSave} />
+          {id ? <Button title='Apagar' onPress={handleDelete} /> : null}
+        </View>
       </View>
 
       <Button title='Ver todas' onPress={handleSeeAll} />

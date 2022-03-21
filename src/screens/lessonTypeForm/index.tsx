@@ -101,16 +101,17 @@ export function LessonTypeForm() {
 
   return (
     <SafeZoneScreen>
-      <Title content={'Tipo de\natividade'} />
-
-      {id ? <Input editable={false} label='ID' value={id} /> : null}
-      <Input label='Descrição' value={description} onChangeText={handleDescriptionChange} />
-
-      <View style={styles.buttonsContainer}>
-        <Button title='Salvar' onPress={handleSave} />
-        {id ? <Button title='Apagar' onPress={handleDelete} /> : null}
+      <View style={styles.containerForm}>
+        <Title content={'Tipo de atividade'} />
+        <View style={styles.rowContainer}>
+          {id ? <Input editable={false} label='ID' value={id} /> : null}
+          <Input label='Descrição' value={description} onChangeText={handleDescriptionChange} />
+        </View>
+        <View style={styles.rowContainer}>
+          <Button title='Salvar' onPress={handleSave} />
+          {id ? <Button title='Apagar' onPress={handleDelete} /> : null}
+        </View>
       </View>
-
       <Button title='Ver todos' onPress={handleSeeAll} />
     </SafeZoneScreen>
   );
