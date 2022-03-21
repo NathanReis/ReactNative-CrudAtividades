@@ -197,16 +197,18 @@ export function LessonForm() {
         <Title content={'Formulário de atividade'} />
         <View style={styles.rowContainer} >
           {id ? <Input editable={false} label='ID' value={id} /> : null}
-          <Input label='Descrição: ' value={description} onChangeText={handleDescriptionChange} />
+          <Input label='Descrição' value={description} onChangeText={handleDescriptionChange} />
         </View>
         <View style={styles.rowContainer} >
           <Select
             data={lessonTypes.map(({ id, description }) => ({ key: id!, value: description }))}
+            label='Tipo de atividade'
             selectedValue={lessonTypeId}
             onValueChange={handleLessonTypeChange}
           />
           <Select
             data={Object.entries(LocalEnum).map(local => ({ key: local[0], value: local[1] }))}
+            label='Local'
             selectedValue={local}
             onValueChange={handleLocalChange}
           />
@@ -241,6 +243,7 @@ export function LessonForm() {
         <View style={styles.rowContainer}>
           <Select
             data={Object.entries(StatusEnum).map(local => ({ key: local[0], value: local[1] }))}
+            label='Status'
             selectedValue={status}
             onValueChange={handleStatusChange}
           />

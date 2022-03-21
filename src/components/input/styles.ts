@@ -8,7 +8,11 @@ export default StyleSheet.create({
   label: {
     alignItems: 'center',
     justifyContent: 'center',
-    textAlign: 'center'
+
+    marginBottom: -10,
+
+    textAlign: 'center',
+    textTransform: 'uppercase'
   },
   input: {
     height: 40,

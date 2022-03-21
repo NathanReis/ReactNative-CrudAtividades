@@ -1,6 +1,19 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
+  container: {
+    marginHorizontal: 10,
+    marginVertical: 5
+  },
+  label: {
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    marginBottom: -10,
+
+    textAlign: 'center',
+    textTransform: 'uppercase'
+  },
   picker: {
     width: 150,
     backgroundColor: '#f07373',

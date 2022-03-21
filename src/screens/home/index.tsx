@@ -91,6 +91,7 @@ export function Home() {
               .concat([{ key: 'all', value: 'Todas' as any }])
           }
           hasNotEmptyOption={true}
+          label='Status'
           selectedValue={status}
           onValueChange={handleStatusChange}
         />
