@@ -82,18 +82,18 @@ export function Home() {
     <SafeZoneScreen isWithoutScroll={true}>
       <View style={styles.buttonsContainer}>
 
-      <Title content={'Atividades'} />
-      <Select
-        data={
-          Object
-            .entries(StatusEnum)
-            .map(local => ({ key: local[0], value: local[1] }))
-            .concat([{ key: 'all', value: 'Todas' as any }])
-        }
-        hasNotEmptyOption={true}
-        selectedValue={status}
-        onValueChange={handleStatusChange}
-      />
+        <Title content={'Atividades'} />
+        <Select
+          data={
+            Object
+              .entries(StatusEnum)
+              .map(local => ({ key: local[0], value: local[1] }))
+              .concat([{ key: 'all', value: 'Todas' as any }])
+          }
+          hasNotEmptyOption={true}
+          selectedValue={status}
+          onValueChange={handleStatusChange}
+        />
       </View>
 
       <View style={styles.listContainer}>

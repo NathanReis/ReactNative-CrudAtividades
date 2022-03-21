@@ -60,19 +60,19 @@ export function LessonTypeList() {
     <SafeZoneScreen isWithoutScroll={true}>
       <Title content={'Tipos de atividades'} />
       <View style={styles.listContainer}>
-      <FlatList
-        data={lessonTypes}
-        keyExtractor={item => String(item.id)}
-        renderItem={({ item }) => (
-          <View style={styles.item}>
-            <Text>{item.description}</Text>
-            <View style={styles.rowContainer}>
-            <Button title='Editar' onPress={() => handleEdit(item.id!)} />
-            <Button title='Excluir' onPress={() => handleDelete(item.id!)} />
+        <FlatList
+          data={lessonTypes}
+          keyExtractor={item => String(item.id)}
+          renderItem={({ item }) => (
+            <View style={styles.item}>
+              <Text>{item.description}</Text>
+              <View style={styles.rowContainer}>
+                <Button title='Editar' onPress={() => handleEdit(item.id!)} />
+                <Button title='Excluir' onPress={() => handleDelete(item.id!)} />
+              </View>
             </View>
-          </View>
-        )} />
-        </View>
+          )} />
+      </View>
     </SafeZoneScreen>
   );
 }

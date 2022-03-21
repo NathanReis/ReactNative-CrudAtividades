@@ -7,14 +7,14 @@ export default StyleSheet.create({
   },
   label: {
     alignItems: 'center',
-    justifyContent: 'center', 
+    justifyContent: 'center',
     textAlign: 'center'
   },
-  input: {    
+  input: {
     height: 40,
     margin: 12,
     borderWidth: 1,
-    padding: 10,    
+    padding: 10,
     width: Dimensions.get('window').width - 200,
   }
 });

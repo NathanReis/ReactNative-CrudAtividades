@@ -7,7 +7,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#d98484',
-    borderColor: "#000000",    
+    borderColor: "#000000",
     fontSize: 20,
     margin: 10
   },
@@ -44,6 +44,6 @@ export default StyleSheet.create({
     borderRadius: 4,
     elevation: 3,
     marginStart: 10,
-    marginEnd: 10    
+    marginEnd: 10
   }
 });

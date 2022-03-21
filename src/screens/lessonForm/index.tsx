@@ -238,13 +238,13 @@ export function LessonForm() {
             />
           }
         </View>
-        <View style={styles.rowContainer} >
-        <Select
-          data={Object.entries(StatusEnum).map(local => ({ key: local[0], value: local[1] }))}
-          selectedValue={status}
-          onValueChange={handleStatusChange}
-        />
-</View>
+        <View style={styles.rowContainer}>
+          <Select
+            data={Object.entries(StatusEnum).map(local => ({ key: local[0], value: local[1] }))}
+            selectedValue={status}
+            onValueChange={handleStatusChange}
+          />
+        </View>
         <View style={styles.rowContainer}>
           <Button title='Salvar' onPress={handleSave} />
           {id ? <Button title='Apagar' onPress={handleDelete} /> : null}
